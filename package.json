@@ -1,0 +1,23 @@
+{
+  "name": "tabulera-recon-demo",
+  "version": "1.0.0",
+  "description": "Benefits reconciliation demo for Tabulera interview",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": ["reconciliation", "benefits", "tabulera"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "csv-parse": "^5.5.0",
+    "fast-csv": "^4.3.6",
+    "joi": "^17.10.2",
+    "morgan": "^1.10.0",
+    "cors": "^2.8.5",
+    "pg": "^8.11.3"
+  }
+}
