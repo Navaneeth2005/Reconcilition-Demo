@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 
-=======
--Overview 
->>>>>>> 107033b (Update server and frontend setup)
+->OVERVIEW
 
 A Node.js/Express service that reconciles employee enrollment data against carrier invoices to detect billing discrepancies.
 
