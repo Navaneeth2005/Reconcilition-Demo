@@ -1,14 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const reconcileRouter = require('./routes/reconcile');
+const path = require('path');
+const reconcileRouter = require('./routes/reconcile'); // adjust path if needed
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS configuration - CRITICAL FIX
+// CORS configuration
 app.use(cors({
-  origin: '*', // Allow all origins (or specify: 'null' for file:// protocol)
+  origin: '*',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: false
@@ -18,7 +19,10 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());
 
-// Routes
+// Serve frontend from public folder
+app.use(express.static(path.join(__dirname, '../public')));
+
+// API routes
 app.use('/api', reconcileRouter);
 
 // Health check endpoint
@@ -30,8 +34,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
+// Optional API root endpoint
+app.get('/api', (req, res) => {
   res.json({
     message: 'Tabulera Benefits Reconciliation API',
     endpoints: {
@@ -50,11 +54,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
+// 404 handler for unmatched routes
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
